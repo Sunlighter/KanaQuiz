@@ -18,8 +18,8 @@ I am only just starting to quiz myself so I don&rsquo;t even know if I will succ
 figured it was worth a try.
 
 This program requires a terminal with UTF-8 support so that you can actually *see* the kana. I have set up vncserver
-in Amazon Linux 2, and the kana display just fine in the MATE terminal. I have not tried this in Windows, but it
-*might* work in the more modern Windows terminal.
+in Amazon Linux 2, and the kana display just fine in the MATE terminal. (You will need to have the Japanese fonts
+installed.) I have not tried this in Windows, but it *might* work in the more modern Windows terminal.
 
 You use it like this:
 
