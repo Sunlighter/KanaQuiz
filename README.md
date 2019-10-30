@@ -115,6 +115,8 @@ stream. The regular `read-line` function will read an empty line in that case. I
 `read-line-2` reads a line and, if it is empty, reads *another* line. (Just once. It does not loop.)
 
 `run-quiz` is of course the primary function of this program. Mostly it is concerned with printing and getting input.
+(I had to use `(shell-command "clear")` to clear the screen. Using `display` with various escape codes didn&rsquo;t
+seem to work. Using `clear` breaks compatibility with Windows, but I wonder if `(shell-command "cls")` would work...)
 
 In the distant future, I intend to add support for [kanji](https://en.wikipedia.org/wiki/Kanji). But those will be
 &ldquo;three-way&rdquo; questions &mdash; I will want the kanji, the pronunciation, and the meaning (in English).
