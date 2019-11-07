@@ -51,6 +51,9 @@ lesson-items)`.
 `make-bank` takes zero or more lesson names and returns a vector of question-answer pairs. (It is not really useful to
 provide zero lesson names, but if you do, you will get an empty vector.)
 
+`make-bank-except` takes zero or more lesson names and returns a question bank that uses all the lessons *except*
+those named. If you provide zero lesson names, you will get all the questions for all the lessons.
+
 `for` implements a simple &ldquo;for&rdquo; loop.
 
 `lookup` takes a lesson name and a question or answer, and returns the corresponding answer or question, or `#f` if
@@ -92,6 +95,9 @@ fu
 
 I did go ahead and include `っ` and `つ` as indistinguishable, and `ッ` and `ツ`, even though they are different sizes
 and so should be distinguishable after all. It&rsquo;s harder to see the size when the symbol is all by itself.
+
+(Note that symbols that you *should* learn to distinguish, such as `シ` and `ツ`, and `ソ` and `ン`, should *not* be
+marked as &ldquo;indistinguishable,&rdquo; otherwise, the quiz will never ask you to distinguish them.)
 
 `make-distinct` creates a list of distinct items. The `init` argument can add any initial items.  `count` is an
 integer indicating how many items to generate. `random-item` is a procedure which takes no arguments and returns a new

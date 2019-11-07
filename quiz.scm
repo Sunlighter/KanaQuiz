@@ -116,6 +116,13 @@
               (if (any (lambda (n) (eq? n lesson-name)) lesson-names)
                 (add-list! lesson-items)))))))))
 
+(define make-bank-except (lambda lesson-names
+    (list->vector
+      (with-add (lambda (add! add-list! items-so-far)
+          (for-each-lesson (lambda (lesson-name lesson-items)
+              (if (not (any (lambda (n) (eq? n lesson-name)) lesson-names))
+                (add-list! lesson-items)))))))))
+
 (define for (lambda (s e proc)
     (let loop ((i s))
       (if (< i e) (begin (proc i) (loop (+ i 1)))
@@ -196,6 +203,7 @@
         (get-a (lambda (i) ((if (= flip 0) cadr car) (vector-ref bank i))))
         (unfair? (lambda (i j)
             (or
+              (= i j)
               (indistinguishable? (get-q i) (get-q j))
               (indistinguishable? (get-a i) (get-a j)))))
         (bank-length (vector-length bank))
