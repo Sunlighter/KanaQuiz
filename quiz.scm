@@ -75,7 +75,7 @@
       (ぴゃ pya) (ぴゅ pyu) (ぴょ pyo))
       ))
 
-(define with-add (lambda (proc)
+(define make-adder (lambda ()
     (let* (
         (results '())
         (add! (lambda (i) (set! results (cons i results)) #t))
@@ -84,8 +84,18 @@
               (if (null? l) #t
                 (begin (add! (car l)) (loop (cdr l)))))))
         (items-so-far (lambda () results)))
-      (proc add! add-list! items-so-far)
-      (reverse results))))
+      (lambda (key)
+        (case key
+          ((add!) add!)
+          ((add-list!) add-list!)
+          ((items) (lambda () (reverse results)))
+          (else (abort `("Unknown key " ,key))))))))
+        
+(define with-add (lambda (proc)
+    (let* (
+        (a (make-adder)))
+      (proc (a 'add!) (a 'add-list!) (a 'items))
+      ((a 'items)))))
 
 (define for-each-lesson (lambda (proc)
     (let loop ((lessons lessons))
@@ -108,20 +118,42 @@
         ((null? items) #f)
         ((proc (car items)) #t)
         (else (loop (cdr items)))))))
-        
-(define make-bank (lambda lesson-names
-    (list->vector
-      (with-add (lambda (add! add-list! items-so-far)
-          (for-each-lesson (lambda (lesson-name lesson-items)
-              (if (any (lambda (n) (eq? n lesson-name)) lesson-names)
-                (add-list! lesson-items)))))))))
 
-(define make-bank-except (lambda lesson-names
-    (list->vector
-      (with-add (lambda (add! add-list! items-so-far)
-          (for-each-lesson (lambda (lesson-name lesson-items)
-              (if (not (any (lambda (n) (eq? n lesson-name)) lesson-names))
-                (add-list! lesson-items)))))))))
+(define stringify (lambda (x)
+    (cond
+      ((char? x) (make-string 1 x))
+      ((string? x) x)
+      ((symbol? x) (symbol->string x))
+      (else (abort "stringify not implemented for type")))))
+      
+(define starts-with? (lambda (prefix str)
+    (let* (
+        (pprefix (stringify prefix))
+        (pstr (stringify str))
+        (prefixlen (string-length pprefix)))
+      (if (< (string-length pstr) prefixlen) #f
+        (string=? pprefix (substring pstr 0 prefixlen))))))
+
+(define ends-with? (lambda (suffix str)
+    (let* (
+        (psuffix (stringify suffix))
+        (pstr (stringify str))
+        (suffixlen (string-length psuffix))
+        (strlen (string-length pstr)))
+      (if (< (string-length pstr) suffixlen) #f
+        (string=? psuffix (substring pstr (- strlen suffixlen) strlen))))))
+
+(define make-bank (lambda (q-proc w-proc)
+    (let (
+        (q-adder (make-adder))
+        (w-adder (make-adder)))
+      (for-each-lesson (lambda (lesson-name lesson-items)
+          (if (q-proc lesson-name)
+            ((q-adder 'add-list!) lesson-items)
+            (if (w-proc lesson-name)
+              ((w-adder 'add-list!) lesson-items)
+              #t))))
+      (vector (list->vector ((q-adder 'items))) (list->vector ((w-adder 'items)))))))
 
 (define for (lambda (s e proc)
     (let loop ((i s))
@@ -199,19 +231,24 @@
 (define make-question (lambda (bank wrong-count)
     (let* (
         (flip (random-integer 2))
-        (get-q (lambda (i) ((if (= flip 0) car cadr) (vector-ref bank i))))
-        (get-a (lambda (i) ((if (= flip 0) cadr car) (vector-ref bank i))))
+        (bank-length (vector-length (vector-ref bank 0)))
+        (bank-length-with-wrongs (+ bank-length (vector-length (vector-ref bank 1))))
+        (ref (lambda (i)
+            (if (< i bank-length)
+              (vector-ref (vector-ref bank 0) i)
+              (vector-ref (vector-ref bank 1) (- i bank-length)))))
+        (get-q (lambda (i) ((if (= flip 0) car cadr) (ref i))))
+        (get-a (lambda (i) ((if (= flip 0) cadr car) (ref i))))
         (unfair? (lambda (i j)
             (or
               (= i j)
               (indistinguishable? (get-q i) (get-q j))
               (indistinguishable? (get-a i) (get-a j)))))
-        (bank-length (vector-length bank))
         (item-index (random-integer bank-length))
         (options (make-distinct
             (lambda (add!) (add! item-index))
             wrong-count
-            (lambda () (random-integer bank-length))
+            (lambda () (random-integer bank-length-with-wrongs))
             unfair?))
         (q (get-q item-index))
         (a-indexes (shuffle! (list->vector options)))
