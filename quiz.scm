@@ -1,79 +1,103 @@
 
-(define lessons '(
+(define lessons-dhn '(
     (katakana-1
-      (ア a) (イ i) (ウ u) (エ e) (オ o)
-      (カ ka) (キ ki) (ク ku) (ケ ke) (コ ko)
-      (ガ ga) (ギ gi) (グ gu) (ゲ ge) (ゴ go))
+      (ア a n) (イ i n) (ウ u n) (エ e n) (オ o n)
+      (カ ka n) (キ ki n) (ク ku n) (ケ ke n) (コ ko n)
+      (ガ ga d) (ギ gi d) (グ gu d) (ゲ ge d) (ゴ go d))
     (katakana-2
-      (サ sa) (シ shi) (ス su) (セ se) (ソ so)
-      (ザ za) (ジ ji) (ズ zu) (ゼ ze) (ゾ zo)
-      (タ ta) (チ chi) (ツ tsu) (テ te) (ト to)
-      (ダ da) (ヂ dji) (ヅ dzu) (デ de) (ド do))
+      (サ sa n) (シ shi n) (ス su n) (セ se n) (ソ so n)
+      (ザ za d) (ジ ji d) (ズ zu d) (ゼ ze d) (ゾ zo d)
+      (タ ta n) (チ chi n) (ツ tsu n) (テ te n) (ト to n)
+      (ダ da d) (ヂ ji d) (ヅ zu d) (デ de d) (ド do d))
     (katakana-3
-      (ナ na) (ニ ni) (ヌ nu) (ネ ne) (ノ no)
-      (ハ ha) (ヒ hi) (フ fu) (ヘ he) (ホ ho)
-      (バ ba) (ビ bi) (ブ bu) (ベ be) (ボ bo)
-      (パ pa) (ピ pi) (プ pu) (ペ pe) (ポ po))
+      (ナ na n) (ニ ni n) (ヌ nu n) (ネ ne n) (ノ no n)
+      (ハ ha n) (ヒ hi n) (フ fu n) (ヘ he n) (ホ ho n)
+      (バ ba d) (ビ bi d) (ブ bu d) (ベ be d) (ボ bo d)
+      (パ pa h) (ピ pi h) (プ pu h) (ペ pe h) (ポ po h))
     (katakana-4
-      (マ ma) (ミ mi) (ム mu) (メ me) (モ mo)
-      (ヤ ya) (ユ yu) (ヨ yo)
-      (ラ ra) (リ ri) (ル ru) (レ re) (ロ ro)
-      (ワ wa) (ヲ wo)
-      (ン n))
+      (マ ma n) (ミ mi n) (ム mu n) (メ me n) (モ mo n)
+      (ヤ ya n) (ユ yu n) (ヨ yo n)
+      (ラ ra n) (リ ri n) (ル ru n) (レ re n) (ロ ro n)
+      (ワ wa n) (ヰ wi n) (ヱ we n) (ヲ wo n)
+      (ン n n))
     (katakana-5
-      (キャ kya) (キュ kyu) (キョ kyo)
-      (シャ sha) (シュ shu) (ショ sho)
-      (チャ cha) (チュ chu) (チョ cho)
-      (ニャ nya) (ニュ nyu) (ニョ nyo))
+      (キャ kya n) (キュ kyu n) (キョ kyo n)
+      (シャ sha n) (シュ shu n) (ショ sho n)
+      (チャ cha n) (チュ chu n) (チョ cho n)
+      (ニャ nya n) (ニュ nyu n) (ニョ nyo n))
     (katakana-6
-      (ヒャ hya) (ヒュ hyu) (ヒョ hyo)
-      (ミャ mya) (ミュ myu) (ミョ myo)
-      (リャ rya) (リュ ryu) (リョ ryo)
-      (ー long-previous-vowel)
-      (ッ double-next-consonant) (ヽ repeat-unvoiced) (ヾ repeat-voiced))
+      (ヒャ hya n) (ヒュ hyu n) (ヒョ hyo n)
+      (ミャ mya n) (ミュ myu n) (ミョ myo n)
+      (リャ rya n) (リュ ryu n) (リョ ryo n)
+      (ー long-previous-vowel n)
+      (ッ double-next-consonant n) (ヽ repeat-unvoiced n) (ヾ repeat-voiced d))
     (katakana-7
-      (ギャ gya) (ギュ gyu) (ギョ gyo)
-      (ジャ ja) (ジュ ju) (ジョ jo)
-      (ヂャ ja) (ヂュ ju) (ヂョ jo)
-      (ビャ bya) (ビュ byu) (ビョ byo)
-      (ピャ pya) (ピュ pyu) (ピョ pyo))
+      (ギャ gya d) (ギュ gyu d) (ギョ gyo d)
+      (ジャ ja d) (ジュ ju d) (ジョ jo d)
+      (ヂャ ja d) (ヂュ ju d) (ヂョ jo d)
+      (ビャ bya d) (ビュ byu d) (ビョ byo d)
+      (ピャ pya h) (ピュ pyu h) (ピョ pyo h))
     (hiragana-1
-      (あ a) (い i) (う u) (え e) (お o)
-      (か ka) (き ki) (く ku) (け ke) (こ ko)
-      (が ga) (ぎ gi) (ぐ gu) (げ ge) (ご go))
+      (あ a n) (い i n) (う u n) (え e n) (お o n)
+      (か ka n) (き ki n) (く ku n) (け ke n) (こ ko n)
+      (が ga d) (ぎ gi d) (ぐ gu d) (げ ge d) (ご go d))
     (hiragana-2
-      (さ sa) (し shi) (す su) (せ se) (そ so)
-      (ざ za) (じ ji) (ず zu) (ぜ ze) (ぞ zo)
-      (た ta) (ち chi) (つ tsu) (て te) (と to)
-      (だ da) (ぢ dji) (づ dzu) (で de) (ど do))
+      (さ sa n) (し shi n) (す su n) (せ se n) (そ so n)
+      (ざ za d) (じ ji d) (ず zu d) (ぜ ze d) (ぞ zo d)
+      (た ta n) (ち chi n) (つ tsu n) (て te n) (と to n)
+      (だ da d) (ぢ ji d) (づ zu d) (で de d) (ど do d))
     (hiragana-3
-      (な na) (に ni) (ぬ nu) (ね ne) (の no)
-      (は ha) (ひ hi) (ふ fu) (へ he) (ほ ho)
-      (ば ba) (び bi) (ぶ bu) (べ be) (ぼ bo)
-      (ぱ pa) (ぴ pi) (ぷ pu) (ぺ pe) (ぽ po))
+      (な na n) (に ni n) (ぬ nu n) (ね ne n) (の no n)
+      (は ha n) (ひ hi n) (ふ fu n) (へ he n) (ほ ho n)
+      (ば ba d) (び bi d) (ぶ bu d) (べ be d) (ぼ bo d)
+      (ぱ pa h) (ぴ pi h) (ぷ pu h) (ぺ pe h) (ぽ po h))
     (hiragana-4
-      (ま ma) (み mi) (む mu) (め me) (も mo)
-      (や ya) (ゆ yu) (よ yo)
-      (ら ra) (り ri) (る ru) (れ re) (ろ ro)
-      (わ wa) (を wo)
-      (ん n))
+      (ま ma n) (み mi n) (む mu n) (め me n) (も mo n)
+      (や ya n) (ゆ yu n) (よ yo n)
+      (ら ra n) (り ri n) (る ru n) (れ re n) (ろ ro n)
+      (わ wa n) (を wo n)
+      (ん n n))
     (hiragana-5
-      (きゃ kya) (きゅ kyu) (きょ kyo)
-      (しゃ sha) (しゅ shu) (しょ sho)
-      (ちゃ cha) (ちゅ chu) (ちょ cho)
-      (にゃ nya) (にゅ nyu) (にょ nyo))
+      (きゃ kya n) (きゅ kyu n) (きょ kyo n)
+      (しゃ sha n) (しゅ shu n) (しょ sho n)
+      (ちゃ cha n) (ちゅ chu n) (ちょ cho n)
+      (にゃ nya n) (にゅ nyu n) (にょ nyo n))
     (hiragana-6
-      (ひゃ hya) (ひゅ hyu) (ひょ hyo)
-      (みゃ mya) (みゅ myu) (みょ myo)
-      (りゃ rya) (りゅ ryu) (りょ ryo)
-      (っ double-next-consonant) (ゝ repeat-unvoiced) (ゞ repeat-voiced))
+      (ひゃ hya n) (ひゅ hyu n) (ひょ hyo n)
+      (みゃ mya n) (みゅ myu n) (みょ myo n)
+      (りゃ rya n) (りゅ ryu n) (りょ ryo n)
+      (っ double-next-consonant n) (ゝ repeat-unvoiced n) (ゞ repeat-voiced d))
     (hiragana-7
-      (ぎゃ gya) (ぎゅ gyu) (ぎょ gyo)
-      (じゃ ja) (じゅ ju) (じょ jo)
-      (ぢゃ ja) (ぢゅ ju) (ぢょ jo)
-      (びゃ bya) (びゅ byu) (びょ byo)
-      (ぴゃ pya) (ぴゅ pyu) (ぴょ pyo))
+      (ぎゃ gya d) (ぎゅ gyu d) (ぎょ gyo d)
+      (じゃ ja d) (じゅ ju d) (じょ jo d)
+      (ぢゃ ja d) (ぢゅ ju d) (ぢょ jo d)
+      (びゃ bya d) (びゅ byu d) (びょ byo d)
+      (ぴゃ pya h) (ぴゅ pyu h) (ぴょ pyo h))
       ))
+
+(define lessons
+  (map (lambda (lesson)
+      (let* (
+          (lesson-name (car lesson))
+          (lesson-items (cdr lesson)))
+        `(,lesson-name
+          ,@(map (lambda (lesson-item)
+              `(,(car lesson-item) ,(cadr lesson-item)))
+            lesson-items))))
+    lessons-dhn))
+
+(define get-dhn (lambda (k)
+    (let loop ((lessons-dhn lessons-dhn))
+      (if (null? lessons-dhn) #f
+        (let (
+            (lesson-dhn (car lessons-dhn))
+            (next-lesson (lambda () (loop (cdr lessons-dhn)))))
+          (let loop2 ((items-dhn (cdr lesson-dhn)))
+            (if (null? items-dhn) (next-lesson)
+              (let (
+                  (item-dhn (car items-dhn))
+                  (next-item (lambda () (loop2 (cdr items-dhn)))))
+                (if (eq? (car item-dhn) k) (caddr item-dhn) (next-item))))))))))
 
 (define make-adder (lambda ()
     (let* (
@@ -124,6 +148,7 @@
       ((char? x) (make-string 1 x))
       ((string? x) x)
       ((symbol? x) (symbol->string x))
+      ((number? x) (number->string x 10))
       (else (abort "stringify not implemented for type")))))
       
 (define starts-with? (lambda (prefix str)
@@ -143,8 +168,53 @@
       (if (< (string-length pstr) suffixlen) #f
         (string=? psuffix (substring pstr (- strlen suffixlen) strlen))))))
 
+(define compile-rule (lambda (rule)
+    (cond
+      ((procedure? rule) rule)
+      ((eq? rule #t) (lambda (x) #t))
+      ((eq? rule #f) (lambda (x) #f))
+      ((pair? rule)
+        (case (car rule)
+          ((not)
+            (let (
+                (irule (compile-rule (cdr rule))))
+              (lambda (x) (not (irule x)))))
+          ((or)
+            (let (
+                (irules (map compile-rule (cdr rule))))
+              (lambda (x) (any (lambda (r) (r x)) irules))))
+          ((and)
+            (let (
+                (irules (map compile-rule (cdr rule))))
+              (lambda (x) (not (any (lambda (r) (not r x)) irules)))))
+          ((is)
+            (let (
+                (the-strings (map stringify (cdr rule))))
+              (lambda (x)
+                (let (
+                    (x (stringify x)))
+                  (any (lambda (y) (string=? y x)) the-strings)))))
+          ((starts-with)
+            (let (
+                (the-strings (map stringify (cdr rule))))
+              (lambda (x)
+                (let (
+                    (x (stringify x)))
+                  (any (lambda (y) (starts-with? y x)) the-strings)))))
+          ((ends-with)
+            (let (
+                (the-strings (map stringify (cdr rule))))
+              (lambda (x)
+                (let (
+                    (x (stringify x)))
+                  (any (lambda (y) (ends-with? y x)) the-strings)))))
+          (else (abort `("unknown rule " ,(car rule))))))
+        (else (abort "unknown rule type")))))
+
 (define make-bank (lambda (q-proc w-proc)
     (let (
+        (q-proc (compile-rule q-proc))
+        (w-proc (compile-rule w-proc))
         (q-adder (make-adder))
         (w-adder (make-adder)))
       (for-each-lesson (lambda (lesson-name lesson-items)
@@ -187,8 +257,8 @@
           (or
             (and (equal? a (car p)) (equal? b (cdr p)))
             (and (equal? b (car p)) (equal? a (cdr p)))))
-        indistinguishable-items))))
-          
+        indistinguishable-items))))          
+      
 (define make-distinct (lambda (init count random-item eq?)
     (with-add (lambda (add! add-list! items-so-far)
         (init add!)
