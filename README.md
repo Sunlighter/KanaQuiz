@@ -2,9 +2,9 @@
 
 This is a simple quiz program I wrote in Gambit Scheme.
 
-The code can quiz on *any* subject, but I wrote it to quiz myself on the Japanese kana, so that is included. I got
-the [hiragana](https://en.wikipedia.org/wiki/Hiragana) and [katakana](https://en.wikipedia.org/wiki/Katakana) from
-their respective Wikipedia articles.
+Some parts of this code can quiz on *any* subject, but I wrote it to quiz myself on the Japanese kana, and the code is
+becoming more adapted to that purpose. I got the [hiragana](https://en.wikipedia.org/wiki/Hiragana) and
+[katakana](https://en.wikipedia.org/wiki/Katakana) from their respective Wikipedia articles.
 
 The quiz program does *not* use [spaced repetition](https://en.wikipedia.org/wiki/Spaced_repetition). It just uses
 plain random numbers, which makes it as good as flash cards. Having hundreds of flash cards at a time is hard to
@@ -28,7 +28,7 @@ You use it like this:
 gsi -:t8,f8
 (load "quiz.scm")
 (list-lessons) ; if you want to see them
-(define b (make-bank 'katakana-1)) ; or pick the lessons you want
+(define b (make-bank '(is katakana-1) #f)) ; or pick the lessons you want
 (randomize!)
 (run-quiz b 4) ; 4 is the number of wrong answers per question
 ```
@@ -37,22 +37,49 @@ I hope this program is useful, but I offer no warranty.
 
 Here are some notes on the program.
 
+`get-dhn` takes a kana and returns one of the following values:
+
+* `d` indicates that there is a dakuten.
+* `h` indicates that there is a handakuten.
+* `n` indicates that there is neither.
+* `#f` indicates that the input did not match any of the kana.
+
+I intend to use this in the future to reduce the number of too-easy questions. A question is too easy if, for example,
+you know you are looking for a kana with a handakuten, but only one of the possible answers includes one. Easy
+questions prevent you from learning the symbols properly.
+
 `with-add` calls a procedure `proc` with an `add!` function. The procedure can loop and traverse and do whatever, and
 `add!` any items it chooses. When `proc` returns, the value it returns is discarded, but `with-add` returns the list
 of all the items that `proc` added.  Later I started passing `add-list!` to the procedure as well, so that it can add
 a list of items, all at once. I also started passing `items-so-far` so that the procedure could examine the list of
 items it had added up to that point.
 
+(Eventually, `with-add` became insufficient by itself, so I wrote `make-adder` and then redefined `with-add` in terms
+of `make-adder`.)
+
 `for-each-lesson` calls a procedure `proc` for each defined lesson. `proc` is called as `(proc lesson-name
 lesson-items)`.
 
 `any` takes a `proc` and a list of `items` and returns `#t` if `proc` returns a true value for any of the `items`.
 
-`make-bank` takes zero or more lesson names and returns a vector of question-answer pairs. (It is not really useful to
-provide zero lesson names, but if you do, you will get an empty vector.)
+`make-bank` takes two *rules.* The first rule indicates which lessons to include in the quiz. The second rule
+indicates additional lessons which can be used to supply additional wrong answers. The syntax of a rule is
+like this:
 
-`make-bank-except` takes zero or more lesson names and returns a question bank that uses all the lessons *except*
-those named. If you provide zero lesson names, you will get all the questions for all the lessons.
+* `#t` includes all lessons.
+* `#f` does not include any lessons.
+* If you pass a Scheme procedure, it is expected to take the lesson name as an argument and to return `#t` if it
+matches the rule or `#f` if it does not.
+* `(is `*name*` `...`)` includes lessons whose names match any of the given *name* items *exactly.*
+* `(starts-with `*prefix*` `...`)` includes lessons whose names start with any of the given *prefix* items.
+* `(ends-with `*suffix*` `...`)` includes lessons whose names end with any of the given *suffix* items.
+* `(or `*rule*` `...`)` takes a list of sub-rules and matches if any of the sub-rules match.
+* `(and `*rule*` `...`)` takes a list of sub-rules and matches only if all of the sub-rules match.
+* `(not . `*rule*`)` takes one sub-rule and matches only if the sub-rule does not. The sub-rule is the tail of
+the list, not a separate list, so it is possible to write something like `(not is katakana-4 hiragana-4)`.
+
+These rules use the function `stringify` to turn everything into strings. So you can say `(ends-with 3)` and it
+matches `hiragana-3` and `katakana-3`.
 
 `for` implements a simple &ldquo;for&rdquo; loop.
 
@@ -97,7 +124,8 @@ I did go ahead and include `っ` and `つ` as indistinguishable, and `ッ` and `
 and so should be distinguishable after all. It&rsquo;s harder to see the size when the symbol is all by itself.
 
 (Note that symbols that you *should* learn to distinguish, such as `シ` and `ツ`, and `ソ` and `ン`, should *not* be
-marked as &ldquo;indistinguishable,&rdquo; otherwise, the quiz will never ask you to distinguish them.)
+marked as &ldquo;indistinguishable,&rdquo; otherwise, the quiz will never ask you to distinguish them, and you
+will learn less.)
 
 `make-distinct` creates a list of distinct items. The `init` argument can add any initial items.  `count` is an
 integer indicating how many items to generate. `random-item` is a procedure which takes no arguments and returns a new
@@ -114,6 +142,9 @@ then uses `find-index` to find it again after shuffling. Really, the wrong answe
 *full* shuffle is not necessary &mdash; and if the right answer is the only thing being moved, it should be much
 easier to know where it has been moved to. But I was lazy. (I did think of writing some kind of &ldquo;tracking
 shuffle&rdquo; so that you could track specific items in the shuffle and see where they had been moved to...)
+
+(Unfortunately `make-question` can loop forever if you ask it for more wrong answers than can be provided. I&rsquo;m
+going to have to fix this someday...)
 
 `randomize!` randomizes the random number generator in Gambit.
 
