@@ -153,21 +153,33 @@
       
 (define starts-with? (lambda (prefix str)
     (let* (
-        (pprefix (stringify prefix))
-        (pstr (stringify str))
-        (prefixlen (string-length pprefix)))
-      (if (< (string-length pstr) prefixlen) #f
-        (string=? pprefix (substring pstr 0 prefixlen))))))
+        (prefix (stringify prefix))
+        (str (stringify str))
+        (prefixlen (string-length prefix)))
+      (if (< (string-length str) prefixlen) #f
+        (string=? prefix (substring str 0 prefixlen))))))
 
 (define ends-with? (lambda (suffix str)
     (let* (
-        (psuffix (stringify suffix))
-        (pstr (stringify str))
-        (suffixlen (string-length psuffix))
-        (strlen (string-length pstr)))
-      (if (< (string-length pstr) suffixlen) #f
-        (string=? psuffix (substring pstr (- strlen suffixlen) strlen))))))
+        (suffix (stringify suffix))
+        (str (stringify str))
+        (suffixlen (string-length suffix))
+        (strlen (string-length str)))
+      (if (< strlen suffixlen) #f
+        (string=? suffix (substring str (- strlen suffixlen) strlen))))))
 
+(define contains? (lambda (infix str)
+    (let* (
+        (infix (stringify infix))
+        (str (stringify str))
+        (infixlen (string-length infix))
+        (strlen (string-length str)))
+      (if (< strlen infixlen) #f
+        (let loop ((pos 0))
+          (if (> (+ pos infixlen) strlen) #f
+            (if (string=? infix (substring str pos (+ pos infixlen))) #t
+              (loop (+ pos 1)))))))))
+              
 (define compile-rule (lambda (rule)
     (cond
       ((procedure? rule) rule)
@@ -186,7 +198,7 @@
           ((and)
             (let (
                 (irules (map compile-rule (cdr rule))))
-              (lambda (x) (not (any (lambda (r) (not r x)) irules)))))
+              (lambda (x) (not (any (lambda (r) (not (r x))) irules)))))
           ((is)
             (let (
                 (the-strings (map stringify (cdr rule))))
@@ -208,20 +220,38 @@
                 (let (
                     (x (stringify x)))
                   (any (lambda (y) (ends-with? y x)) the-strings)))))
+          ((contains)
+            (let (
+                (the-strings (map stringify (cdr rule))))
+              (lambda (x)
+                (let (
+                    (x (stringify x)))
+                  (any (lambda (y) (contains? y x)) the-strings)))))           
           (else (abort `("unknown rule " ,(car rule))))))
         (else (abort "unknown rule type")))))
 
-(define make-bank (lambda (q-proc w-proc)
+(define dhn-filter (lambda (dhn item)
+    (let (
+        (item-dhn (get-dhn (car item))))
+      (contains? item-dhn dhn))))
+      
+(define make-bank (lambda (q-proc w-proc dhn)
     (let (
         (q-proc (compile-rule q-proc))
         (w-proc (compile-rule w-proc))
         (q-adder (make-adder))
-        (w-adder (make-adder)))
+        (w-adder (make-adder))
+        (add-dhn! (lambda (add! items)
+            (let loop ((items items))
+              (if (null? items) #t
+                (begin
+                  (if (dhn-filter dhn (car items)) (add! (car items)))
+                  (loop (cdr items))))))))
       (for-each-lesson (lambda (lesson-name lesson-items)
           (if (q-proc lesson-name)
-            ((q-adder 'add-list!) lesson-items)
+            (add-dhn! (q-adder 'add!) lesson-items)
             (if (w-proc lesson-name)
-              ((w-adder 'add-list!) lesson-items)
+              (add-dhn! (w-adder 'add!) lesson-items)
               #t))))
       (vector (list->vector ((q-adder 'items))) (list->vector ((w-adder 'items)))))))
 

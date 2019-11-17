@@ -28,7 +28,7 @@ You use it like this:
 gsi -:t8,f8
 (load "quiz.scm")
 (list-lessons) ; if you want to see them
-(define b (make-bank '(is katakana-1) #f)) ; or pick the lessons you want
+(define b (make-bank '(is katakana-1) #f 'dhn)) ; or pick the lessons you want
 (randomize!)
 (run-quiz b 4) ; 4 is the number of wrong answers per question
 ```
@@ -62,9 +62,10 @@ lesson-items)`.
 
 `any` takes a `proc` and a list of `items` and returns `#t` if `proc` returns a true value for any of the `items`.
 
-`make-bank` takes two *rules.* The first rule indicates which lessons to include in the quiz. The second rule
-indicates additional lessons which can be used to supply additional wrong answers. The syntax of a rule is
-like this:
+`make-bank` takes two *rules* and a `dhn` symbol. The first rule indicates which lessons to include in the quiz. The
+second rule indicates additional lessons which can be used to supply additional wrong answers.
+
+The syntax of a rule is like this:
 
 * `#t` includes all lessons.
 * `#f` does not include any lessons.
@@ -73,6 +74,7 @@ matches the rule or `#f` if it does not.
 * `(is `*name*` `...`)` includes lessons whose names match any of the given *name* items *exactly.*
 * `(starts-with `*prefix*` `...`)` includes lessons whose names start with any of the given *prefix* items.
 * `(ends-with `*suffix*` `...`)` includes lessons whose names end with any of the given *suffix* items.
+* `(contains `*infix*` `...`)` includes lessons whose names contain any of the given *infix* items.
 * `(or `*rule*` `...`)` takes a list of sub-rules and matches if any of the sub-rules match.
 * `(and `*rule*` `...`)` takes a list of sub-rules and matches only if all of the sub-rules match.
 * `(not . `*rule*`)` takes one sub-rule and matches only if the sub-rule does not. The sub-rule is the tail of
@@ -80,6 +82,9 @@ the list, not a separate list, so it is possible to write something like `(not i
 
 These rules use the function `stringify` to turn everything into strings. So you can say `(ends-with 3)` and it
 matches `hiragana-3` and `katakana-3`.
+
+The `dhn` symbol can be any symbol which contains any subset (except the empty set) of the letters `d`, `h`, or `n`,
+in any order. The letters indicate whether to include symbols with dakuten, handakuten, or neither.
 
 `for` implements a simple &ldquo;for&rdquo; loop.
 
