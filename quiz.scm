@@ -398,3 +398,4 @@
                   (present-question))))
             (present-question)))))))
                 
+(randomize!)
