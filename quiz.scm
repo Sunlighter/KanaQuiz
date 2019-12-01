@@ -14,9 +14,10 @@
       (ハ ha n) (ヒ hi n) (フ fu n) (ヘ he n) (ホ ho n)
       (バ ba d) (ビ bi d) (ブ bu d) (ベ be d) (ボ bo d)
       (パ pa h) (ピ pi h) (プ pu h) (ペ pe h) (ポ po h))
-    (katakana-4
+    (katakana-4a
       (マ ma n) (ミ mi n) (ム mu n) (メ me n) (モ mo n)
-      (ヤ ya n) (ユ yu n) (ヨ yo n)
+      (ヤ ya n) (ユ yu n) (ヨ yo n))
+    (katakana-4b
       (ラ ra n) (リ ri n) (ル ru n) (レ re n) (ロ ro n)
       (ワ wa n) (ヰ wi n) (ヱ we n) (ヲ wo n)
       (ン n n))
@@ -51,9 +52,10 @@
       (は ha n) (ひ hi n) (ふ fu n) (へ he n) (ほ ho n)
       (ば ba d) (び bi d) (ぶ bu d) (べ be d) (ぼ bo d)
       (ぱ pa h) (ぴ pi h) (ぷ pu h) (ぺ pe h) (ぽ po h))
-    (hiragana-4
+    (hiragana-4a
       (ま ma n) (み mi n) (む mu n) (め me n) (も mo n)
-      (や ya n) (ゆ yu n) (よ yo n)
+      (や ya n) (ゆ yu n) (よ yo n))
+    (hiragana-4b
       (ら ra n) (り ri n) (る ru n) (れ re n) (ろ ro n)
       (わ wa n) (を wo n)
       (ん n n))
@@ -254,6 +256,10 @@
               (add-dhn! (w-adder 'add!) lesson-items)
               #t))))
       (vector (list->vector ((q-adder 'items))) (list->vector ((w-adder 'items)))))))
+
+(define bank-info (lambda (bank)
+    `((questions . ,(vector-length (vector-ref bank 0)))
+      (additional-wrongs . ,(vector-length (vector-ref bank 1))))))
 
 (define for (lambda (s e proc)
     (let loop ((i s))
