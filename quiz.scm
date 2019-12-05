@@ -57,7 +57,7 @@
       (や ya n) (ゆ yu n) (よ yo n))
     (hiragana-4b
       (ら ra n) (り ri n) (る ru n) (れ re n) (ろ ro n)
-      (わ wa n) (を wo n)
+      (わ wa n) (ゐ wi n) (ゑ we n) (を wo n)
       (ん n n))
     (hiragana-5
       (きゃ kya n) (きゅ kyu n) (きょ kyo n)
