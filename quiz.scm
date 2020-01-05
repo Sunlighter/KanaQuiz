@@ -278,6 +278,28 @@
                   (else (loop (cdr li)))))
               #t)))))))
 
+(define lookup-1-from-bank (lambda (bank item)
+    (let* (
+        (bank1 (vector-ref bank 0))
+        (len (vector-length bank1)))
+      (call-with-current-continuation (lambda (return)
+          (for 0 len (lambda (i)
+              (let (
+                  (q (vector-ref bank1 i)))
+                (if (eq? (car q) item) (return (cadr q)))
+                (if (eq? (cadr q) item) (return (car q))))))
+          #f)))))
+      
+(define lookup-from-bank (lambda (bank items)
+    (with-add (lambda (add! add-list! get-items)
+        (let loop ((remain items))
+          (if (null? remain) #t
+            (let (
+                (item (car remain))
+                (remain (cdr remain)))
+              (add! (lookup-1-from-bank bank item))
+              (loop remain))))))))
+
 (define indistinguishable-items `(
     (,(lookup 'katakana-3 'he) . ,(lookup 'hiragana-3 'he))
     (,(lookup 'katakana-3 'be) . ,(lookup 'hiragana-3 'be))
