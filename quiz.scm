@@ -134,6 +134,17 @@
           (proc lesson-name lesson-items)
           (loop lessons))))))
 
+(define for-each-lesson-dhn (lambda (proc)
+    (let loop ((lessons lessons-dhn))
+      (if (null? lessons) #t
+        (let* (
+            (lesson (car lessons))
+            (lesson-name (car lesson))
+            (lesson-items (cdr lesson))
+            (lessons (cdr lessons)))
+          (proc lesson-name lesson-items)
+          (loop lessons))))))
+
 (define list-lessons (lambda ()
     (with-add (lambda (add! add-list! items-so-far)
         (for-each-lesson (lambda (name items) (add! name)))))))
@@ -254,6 +265,20 @@
             (add-dhn! (q-adder 'add!) lesson-items)
             (if (w-proc lesson-name)
               (add-dhn! (w-adder 'add!) lesson-items)
+              #t))))
+      (vector (list->vector ((q-adder 'items))) (list->vector ((w-adder 'items)))))))
+
+(define make-bank-dhn (lambda (q-proc w-proc)
+    (let (
+        (q-proc (compile-rule q-proc))
+        (w-proc (compile-rule w-proc))
+        (q-adder (make-adder))
+        (w-adder (make-adder)))
+      (for-each-lesson-dhn (lambda (lesson-name lesson-items)
+          (if (q-proc lesson-name)
+            ((q-adder 'add-list!) lesson-items)
+            (if (w-proc lesson-name)
+              ((w-adder 'add-list!) lesson-items)
               #t))))
       (vector (list->vector ((q-adder 'items))) (list->vector ((w-adder 'items)))))))
 
