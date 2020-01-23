@@ -341,19 +341,26 @@
             (and (equal? a (car p)) (equal? b (cdr p)))
             (and (equal? b (car p)) (equal? a (cdr p)))))
         indistinguishable-items))))          
-      
-(define make-distinct (lambda (init count random-item eq?)
-    (with-add (lambda (add! add-list! items-so-far)
-        (init add!)
-        (let loop ((count count))
-          (if (= count 0) #t
-            (let loop2 ()
-              (let ((candidate (random-item)))
-                (let loop3 ((items (items-so-far)))
-                  (cond
-                    ((null? items) (add! candidate) (loop (- count 1)))
-                    ((eq? (car items) candidate) (loop2))
-                    (else (loop3 (cdr items)))))))))))))
+
+(define make-distinct (lambda (candidate-list count eq?)
+    (let loop (
+        (results '())
+        (count-so-far 0)
+        (candidate-list candidate-list))
+      (cond
+        ((null? candidate-list) results)
+        ((>= count-so-far count) results)
+        (else
+          (let* (
+              (candidate-vector (list->vector candidate-list))
+              (i (random-integer (vector-length candidate-vector)))
+              (filtered-candidates (let loop ((results '()) (j 0))
+                  (if (>= j (vector-length candidate-vector))
+                    results
+                    (if (and (not (= i j)) (not (eq? (vector-ref candidate-vector i) (vector-ref candidate-vector j))))
+                      (loop (cons (vector-ref candidate-vector j) results) (+ j 1))
+                      (loop results (+ j 1)))))))
+            (loop (cons (vector-ref candidate-vector i) results) (+ count-so-far 1) filtered-candidates)))))))
 
 (define shuffle! (lambda (vec)
     (let (
@@ -381,6 +388,13 @@
           (loop (+ i 1)))
         #f))))
 
+(define filter (lambda (proc lst)
+    (let loop ((lst lst) (result '()))
+      (if (null? lst) result
+        (if (proc (car lst))
+          (loop (cdr lst) (cons (car lst) result))
+          (loop (cdr lst) (reverse result)))))))
+          
 (define make-question (lambda (bank wrong-count)
     (let* (
         (flip (random-integer 2))
@@ -398,11 +412,54 @@
               (indistinguishable? (get-q i) (get-q j))
               (indistinguishable? (get-a i) (get-a j)))))
         (item-index (random-integer bank-length))
-        (options (make-distinct
-            (lambda (add!) (add! item-index))
-            wrong-count
-            (lambda () (random-integer bank-length-with-wrongs))
-            unfair?))
+        (options
+          (cons item-index
+            (make-distinct
+              (filter (lambda (j) (unfair? item-index j)) (iota bank-length-with-wrongs))
+              wrong-count
+              unfair?)))
+        (q (get-q item-index))
+        (a-indexes (shuffle! (list->vector options)))
+        (a-values (list->vector (map get-a (vector->list a-indexes))))
+        (a-pick (find-index (lambda (i) (= i item-index)) a-indexes)))
+      `(,q ,a-values ,a-pick))))
+
+(define make-question-dhn (lambda (q bank-dhn wrong-count)
+    (let* (
+        (bank-length (vector-length (vector-ref bank-dhn 0)))
+        (bank-length-with-wrongs (+ bank-length (vector-length (vector-ref bank-dhn 1))))
+        (ref (lambda (i)
+            (if (< i bank-length)
+              (vector-ref (vector-ref bank-dhn 0) i)
+              (vector-ref (vector-ref bank-dhn 1) (- i bank-length)))))
+        (flip-item-index
+          (let loop ((i 0))
+            (if (>= i bank-length)
+              (abort "Question not found")
+              (let (
+                  (item (ref i)))
+                (cond
+                  ((eq? (car item) q) (cons 0 i))
+                  ((eq? (cadr item) q) (cons 1 i))
+                  (else (loop (+ i 1))))))))
+        (flip (car flip-item-index))
+        (item-index (cdr flip-item-index))
+        (get-q (lambda (i) ((if (= flip 0) car cadr) (ref i))))
+        (get-a (lambda (i) ((if (= flip 0) cadr car) (ref i))))
+        (get-dhn (lambda (i) (caddr (ref i))))
+        (unfair? (lambda (i j)
+            (or
+              (= i j)
+              (indistinguishable? (get-q i) (get-q j))
+              (indistinguishable? (get-a i) (get-a j)))))
+        (dhn-item-index (get-dhn item-index))
+        (options
+          (cons item-index
+            (make-distinct
+              (filter (lambda (i) (and (not (unfair? i item-index)) (eq? (get-dhn i) dhn-item-index)))
+                (iota bank-length-with-wrongs))
+              wrong-count
+              unfair?)))
         (q (get-q item-index))
         (a-indexes (shuffle! (list->vector options)))
         (a-values (list->vector (map get-a (vector->list a-indexes))))
@@ -450,5 +507,5 @@
                 (if (equal? b "q") #t
                   (present-question))))
             (present-question)))))))
-                
+
 (randomize!)
