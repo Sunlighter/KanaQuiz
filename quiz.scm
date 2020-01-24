@@ -540,4 +540,9 @@
 		    (present-question))))
 	      (present-question))))))))
 
+(define bh (make-bank '(and (starts-with hiragana) (ends-with 1 2 3 |4a| |4b|)) #f 'n))
+(define bhn (make-bank-dhn '(and (starts-with hiragana) (ends-with 1 2 3 |4a| |4b|)) #f))
+(define bk (make-bank '(and (starts-with katakana) (ends-with 1 2 3 |4a| |4b|)) #f 'n))
+(define bkn (make-bank-dhn '(and (starts-with katakana) (ends-with 1 2 3 |4a| |4b|)) #f))
+
 (randomize!)
