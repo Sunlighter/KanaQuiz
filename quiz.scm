@@ -415,7 +415,7 @@
         (options
           (cons item-index
             (make-distinct
-              (filter (lambda (j) (unfair? item-index j)) (iota bank-length-with-wrongs))
+              (filter (lambda (j) (not (unfair? item-index j))) (iota bank-length-with-wrongs))
               wrong-count
               unfair?)))
         (q (get-q item-index))
@@ -471,7 +471,26 @@
 (define read-line-2 (lambda ()
     (let ((l (read-line)))
       (if (zero? (string-length l)) (read-line) l))))
-      
+
+(define present-question (lambda (q a-values a-pick loop)
+    (shell-command "clear")
+    (display q) (newline) (newline)
+    (for 0 (vector-length a-values) (lambda (i)
+	(display "  ")
+	(display i)
+	(display ") ")
+	(display (vector-ref a-values i))
+	(newline)))
+    (newline)
+    (display "Enter your answer or q to quit.")
+    (newline)
+    (display "? ")
+    (let ((a (read)))
+      (cond
+	((equal? a 'q) #t)
+	((equal? a a-pick) (display "Correct!") (newline) (newline) (loop #t))
+	(else (display "Wrong - it was ") (display a-pick) (display ".") (newline) (newline) (loop #f))))))
+
 (define run-quiz (lambda (bank wrong-count)
     (let loop ((do-prompt #f))
       (let* (
@@ -480,24 +499,10 @@
           (a-values (cadr qdata))
           (a-pick (caddr qdata)))
         (let (
-            (present-question (lambda ()
-                (shell-command "clear")
-                (display q) (newline) (newline)
-                (for 0 (vector-length a-values) (lambda (i)
-                    (display "  ")
-                    (display i)
-                    (display ") ")
-                    (display (vector-ref a-values i))
-                    (newline)))
-                (newline)
-                (display "Enter your answer or q to quit.")
-                (newline)
-                (display "? ")
-                (let ((a (read)))
-                  (cond
-                    ((equal? a 'q) #t)
-                    ((equal? a a-pick) (display "Correct!") (newline) (newline) (loop #t))
-                    (else (display "Wrong - it was ") (display a-pick) (display ".") (newline) (newline) (loop #t)))))))
+            (present-question
+	      (lambda ()
+	        (present-question q a-values a-pick
+		  (lambda (right?) (loop #t))))))
           (if do-prompt
             (begin
               (display "Enter q to quit or press enter to continue.")
@@ -507,5 +512,32 @@
                 (if (equal? b "q") #t
                   (present-question))))
             (present-question)))))))
+
+(define run-quiz-dhn (lambda (qs bank wrong-count)
+    (let loop ((do-prompt #f) (qs qs))
+      (if (null? qs)
+        (begin
+	  (display "Done!")
+	  (newline))
+        (let* (
+            (qdata (make-question-dhn (car qs) bank wrong-count))
+	    (q (car qdata))
+	    (a-values (cadr qdata))
+	    (a-pick (caddr qdata)))
+	  (let (
+	      (present-question
+	        (lambda ()
+		  (present-question q a-values a-pick
+		    (lambda (right?)
+		      (if right? (loop #t (cdr qs)) (loop #t qs)))))))
+	    (if do-prompt
+	      (begin
+		(display "Enter q to quit or press enter to continue.")
+		(newline)
+		(display "? ")
+		(let ((b (read-line-2)))
+		  (if (equal? b "q") #t
+		    (present-question))))
+	      (present-question))))))))
 
 (randomize!)
