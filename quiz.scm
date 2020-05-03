@@ -340,7 +340,7 @@
           (or
             (and (equal? a (car p)) (equal? b (cdr p)))
             (and (equal? b (car p)) (equal? a (cdr p)))))
-        indistinguishable-items))))          
+        indistinguishable-items))))
 
 (define make-distinct (lambda (candidate-list count eq?)
     (let loop (
@@ -540,9 +540,9 @@
 		    (present-question))))
 	      (present-question))))))))
 
-(define bh (make-bank '(and (starts-with hiragana) (ends-with 1 2 3 |4a| |4b|)) #f 'n))
-(define bhn (make-bank-dhn '(and (starts-with hiragana) (ends-with 1 2 3 |4a| |4b|)) #f))
-(define bk (make-bank '(and (starts-with katakana) (ends-with 1 2 3 |4a| |4b|)) #f 'n))
-(define bkn (make-bank-dhn '(and (starts-with katakana) (ends-with 1 2 3 |4a| |4b|)) #f))
+(define bh (make-bank '(and (starts-with hiragana) (contains 1 2 3 4)) #f 'n))
+(define bhn (make-bank-dhn '(and (starts-with hiragana) (contains 1 2 3 4)) #f))
+(define bk (make-bank '(and (starts-with katakana) (contains 1 2 3 4)) #f 'n))
+(define bkn (make-bank-dhn '(and (starts-with katakana) (contains 1 2 3 4)) #f))
 
 (randomize!)
