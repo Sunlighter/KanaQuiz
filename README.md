@@ -46,6 +46,8 @@ gsi -:t8,f8
 (run-quiz-dhn '(ko n ni chi wa) bhn 4)
 ```
 
+(Oops, I have read that this should be written `ko n ni chi ha` even though the last `ha` is pronounced `wa`.)
+
 (In the writing quiz, you can use a pre-made bank of questions instead of having to create one. The `bhn` bank
 contains hiragana, and the `bkn` bank contains katakana. Currently, I left the digraphs out, though.)
 
