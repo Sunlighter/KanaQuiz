@@ -233,7 +233,7 @@
                 (let (
                     (x (stringify x)))
                   (any (lambda (y) (ends-with? y x)) the-strings)))))
-          ((contains)
+          ((contains includes)
             (let (
                 (the-strings (map stringify (cdr rule))))
               (lambda (x)
