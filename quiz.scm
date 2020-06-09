@@ -476,20 +476,20 @@
     (shell-command "clear")
     (display q) (newline) (newline)
     (for 0 (vector-length a-values) (lambda (i)
-	(display "  ")
-	(display i)
-	(display ") ")
-	(display (vector-ref a-values i))
-	(newline)))
+        (display "  ")
+        (display i)
+        (display ") ")
+        (display (vector-ref a-values i))
+        (newline)))
     (newline)
     (display "Enter your answer or q to quit.")
     (newline)
     (display "? ")
     (let ((a (read)))
       (cond
-	((equal? a 'q) #t)
-	((equal? a a-pick) (display "Correct!") (newline) (newline) (loop #t))
-	(else (display "Wrong - it was ") (display a-pick) (display ".") (newline) (newline) (loop #f))))))
+        ((equal? a 'q) #t)
+        ((equal? a a-pick) (display "Correct!") (newline) (newline) (loop #t))
+        (else (display "Wrong - it was ") (display a-pick) (display ".") (newline) (newline) (loop #f))))))
 
 (define run-quiz (lambda (bank wrong-count)
     (let loop ((do-prompt #f))
@@ -500,9 +500,9 @@
           (a-pick (caddr qdata)))
         (let (
             (present-question
-	      (lambda ()
-	        (present-question q a-values a-pick
-		  (lambda (right?) (loop #t))))))
+              (lambda ()
+                (present-question q a-values a-pick
+                  (lambda (right?) (loop #t))))))
           (if do-prompt
             (begin
               (display "Enter q to quit or press enter to continue.")
@@ -517,28 +517,28 @@
     (let loop ((do-prompt #f) (qs qs))
       (if (null? qs)
         (begin
-	  (display "Done!")
-	  (newline))
+          (display "Done!")
+          (newline))
         (let* (
             (qdata (make-question-dhn (car qs) bank wrong-count))
-	    (q (car qdata))
-	    (a-values (cadr qdata))
-	    (a-pick (caddr qdata)))
-	  (let (
-	      (present-question
-	        (lambda ()
-		  (present-question q a-values a-pick
-		    (lambda (right?)
-		      (if right? (loop #t (cdr qs)) (loop #t qs)))))))
-	    (if do-prompt
-	      (begin
-		(display "Enter q to quit or press enter to continue.")
-		(newline)
-		(display "? ")
-		(let ((b (read-line-2)))
-		  (if (equal? b "q") #t
-		    (present-question))))
-	      (present-question))))))))
+            (q (car qdata))
+            (a-values (cadr qdata))
+            (a-pick (caddr qdata)))
+          (let (
+              (present-question
+                (lambda ()
+                  (present-question q a-values a-pick
+                    (lambda (right?)
+                      (if right? (loop #t (cdr qs)) (loop #t qs)))))))
+            (if do-prompt
+              (begin
+                (display "Enter q to quit or press enter to continue.")
+                (newline)
+                (display "? ")
+                (let ((b (read-line-2)))
+                  (if (equal? b "q") #t
+                    (present-question))))
+              (present-question))))))))
 
 (define bh (make-bank '(and (starts-with hiragana) (contains 1 2 3 4)) #f 'n))
 (define bhn (make-bank-dhn '(and (starts-with hiragana) (contains 1 2 3 4)) #f))
