@@ -1,105 +1,100 @@
 
-(define lessons-dhn '(
-    (katakana-1
-      (ア a n) (イ i n) (ウ u n) (エ e n) (オ o n)
-      (カ ka n) (キ ki n) (ク ku n) (ケ ke n) (コ ko n)
-      (ガ ga d) (ギ gi d) (グ gu d) (ゲ ge d) (ゴ go d))
-    (katakana-2
-      (サ sa n) (シ shi n) (ス su n) (セ se n) (ソ so n)
-      (ザ za d) (ジ ji d) (ズ zu d) (ゼ ze d) (ゾ zo d)
-      (タ ta n) (チ chi n) (ツ tsu n) (テ te n) (ト to n)
-      (ダ da d) (ヂ ji d) (ヅ zu d) (デ de d) (ド do d))
-    (katakana-3
-      (ナ na n) (ニ ni n) (ヌ nu n) (ネ ne n) (ノ no n)
-      (ハ ha n) (ヒ hi n) (フ fu n) (ヘ he n) (ホ ho n)
-      (バ ba d) (ビ bi d) (ブ bu d) (ベ be d) (ボ bo d)
-      (パ pa h) (ピ pi h) (プ pu h) (ペ pe h) (ポ po h))
-    (katakana-4a
-      (マ ma n) (ミ mi n) (ム mu n) (メ me n) (モ mo n)
-      (ヤ ya n) (ユ yu n) (ヨ yo n))
-    (katakana-4b
-      (ラ ra n) (リ ri n) (ル ru n) (レ re n) (ロ ro n)
-      (ワ wa n) (ヰ wi n) (ヱ we n) (ヲ wo n)
-      (ン n n))
-    (katakana-5
-      (キャ kya n) (キュ kyu n) (キョ kyo n)
-      (シャ sha n) (シュ shu n) (ショ sho n)
-      (チャ cha n) (チュ chu n) (チョ cho n)
-      (ニャ nya n) (ニュ nyu n) (ニョ nyo n))
-    (katakana-6
-      (ヒャ hya n) (ヒュ hyu n) (ヒョ hyo n)
-      (ミャ mya n) (ミュ myu n) (ミョ myo n)
-      (リャ rya n) (リュ ryu n) (リョ ryo n)
-      (ー long-previous-vowel n)
-      (ッ double-next-consonant n) (ヽ repeat-unvoiced n) (ヾ repeat-voiced d))
-    (katakana-7
-      (ギャ gya d) (ギュ gyu d) (ギョ gyo d)
-      (ジャ ja d) (ジュ ju d) (ジョ jo d)
-      (ヂャ ja d) (ヂュ ju d) (ヂョ jo d)
-      (ビャ bya d) (ビュ byu d) (ビョ byo d)
-      (ピャ pya h) (ピュ pyu h) (ピョ pyo h))
-    (hiragana-1
-      (あ a n) (い i n) (う u n) (え e n) (お o n)
-      (か ka n) (き ki n) (く ku n) (け ke n) (こ ko n)
-      (が ga d) (ぎ gi d) (ぐ gu d) (げ ge d) (ご go d))
-    (hiragana-2
-      (さ sa n) (し shi n) (す su n) (せ se n) (そ so n)
-      (ざ za d) (じ ji d) (ず zu d) (ぜ ze d) (ぞ zo d)
-      (た ta n) (ち chi n) (つ tsu n) (て te n) (と to n)
-      (だ da d) (ぢ ji d) (づ zu d) (で de d) (ど do d))
-    (hiragana-3
-      (な na n) (に ni n) (ぬ nu n) (ね ne n) (の no n)
-      (は ha n) (ひ hi n) (ふ fu n) (へ he n) (ほ ho n)
-      (ば ba d) (び bi d) (ぶ bu d) (べ be d) (ぼ bo d)
-      (ぱ pa h) (ぴ pi h) (ぷ pu h) (ぺ pe h) (ぽ po h))
-    (hiragana-4a
-      (ま ma n) (み mi n) (む mu n) (め me n) (も mo n)
-      (や ya n) (ゆ yu n) (よ yo n))
-    (hiragana-4b
-      (ら ra n) (り ri n) (る ru n) (れ re n) (ろ ro n)
-      (わ wa n) (ゐ wi n) (ゑ we n) (を wo n)
-      (ん n n))
-    (hiragana-5
-      (きゃ kya n) (きゅ kyu n) (きょ kyo n)
-      (しゃ sha n) (しゅ shu n) (しょ sho n)
-      (ちゃ cha n) (ちゅ chu n) (ちょ cho n)
-      (にゃ nya n) (にゅ nyu n) (にょ nyo n))
-    (hiragana-6
-      (ひゃ hya n) (ひゅ hyu n) (ひょ hyo n)
-      (みゃ mya n) (みゅ myu n) (みょ myo n)
-      (りゃ rya n) (りゅ ryu n) (りょ ryo n)
-      (っ double-next-consonant n) (ゝ repeat-unvoiced n) (ゞ repeat-voiced d))
-    (hiragana-7
-      (ぎゃ gya d) (ぎゅ gyu d) (ぎょ gyo d)
-      (じゃ ja d) (じゅ ju d) (じょ jo d)
-      (ぢゃ ja d) (ぢゅ ju d) (ぢょ jo d)
-      (びゃ bya d) (びゅ byu d) (びょ byo d)
-      (ぴゃ pya h) (ぴゅ pyu h) (ぴょ pyo h))
-      ))
+(define lessons '())
 
-(define lessons
-  (map (lambda (lesson)
-      (let* (
-          (lesson-name (car lesson))
-          (lesson-items (cdr lesson)))
-        `(,lesson-name
-          ,@(map (lambda (lesson-item)
-              `(,(car lesson-item) ,(cadr lesson-item)))
-            lesson-items))))
-    lessons-dhn))
+(define add-lesson! (lambda (name qlist)
+    (set! lessons
+      (cons (cons name qlist) lessons))))
 
-(define get-dhn (lambda (k)
-    (let loop ((lessons-dhn lessons-dhn))
-      (if (null? lessons-dhn) #f
-        (let (
-            (lesson-dhn (car lessons-dhn))
-            (next-lesson (lambda () (loop (cdr lessons-dhn)))))
-          (let loop2 ((items-dhn (cdr lesson-dhn)))
-            (if (null? items-dhn) (next-lesson)
-              (let (
-                  (item-dhn (car items-dhn))
-                  (next-item (lambda () (loop2 (cdr items-dhn)))))
-                (if (eq? (car item-dhn) k) (caddr item-dhn) (next-item))))))))))
+(add-lesson! 'katakana-1 '(
+    #(n ア a) #(n イ i) #(n ウ u) #(n エ e) #(n オ o)
+    #(n カ ka) #(n キ ki) #(n ク ku) #(n ケ ke) #(n コ ko)
+    #(d ガ ga) #(d ギ gi) #(d グ gu) #(d ゲ ge) #(d ゴ go)))
+
+(add-lesson! 'katakana-2 '(
+    #(n サ sa) #(n シ shi) #(n ス su) #(n セ se) #(n ソ so)
+    #(d ザ za) #(d ジ ji) #(d ズ zu) #(d ゼ ze) #(d ゾ zo)
+    #(n タ ta) #(n チ chi) #(n ツ tsu) #(n テ te) #(n ト to)
+    #(d ダ da) #(d ヂ ji) #(d ヅ zu) #(d デ de) #(d ド do)))
+
+(add-lesson! 'katakana-3 '(
+    #(n ナ na) #(n ニ ni) #(n ヌ nu) #(n ネ ne) #(n ノ no)
+    #(n ハ ha) #(n ヒ hi) #(n フ fu) #(n ヘ he) #(n ホ ho)
+    #(d バ ba) #(d ビ bi) #(d ブ bu) #(d ベ be) #(d ボ bo)
+    #(h パ pa) #(h ピ pi) #(h プ pu) #(h ペ pe) #(h ポ po)))
+
+(add-lesson! 'katakana-4a '(
+    #(n マ ma) #(n ミ mi) #(n ム mu) #(n メ me) #(n モ mo)
+    #(n ヤ ya) #(n ユ yu) #(n ヨ yo)))
+
+(add-lesson! 'katakana-4b '(
+    #(n ラ ra) #(n リ ri) #(n ル ru) #(n レ re) #(n ロ ro)
+    #(n ワ wa) #(n ヰ wi) #(n ヱ we) #(n ヲ wo)
+    #(n ン n)))
+
+(add-lesson! 'katakana-5 '(
+    #(n2 キャ kya) #(n2 キュ kyu) #(n2 キョ kyo)
+    #(n2 シャ sha) #(n2 シュ shu) #(n2 ショ sho)
+    #(n2 チャ cha) #(n2 チュ chu) #(n2 チョ cho)
+    #(n2 ニャ nya) #(n2 ニュ nyu) #(n2 ニョ nyo)))
+
+(add-lesson! 'katakana-6 '(
+    #(n2 ヒャ hya) #(n2 ヒュ hyu) #(n2 ヒョ hyo)
+    #(n2 ミャ mya) #(n2 ミュ myu) #(n2 ミョ myo)
+    #(n2 リャ rya) #(n2 リュ ryu) #(n2 リョ ryo)
+    #(n ー long-previous-vowel)
+    #(n ッ double-next-consonant) #(n ヽ repeat-unvoiced) #(d ヾ repeat-voiced)))
+
+(add-lesson! 'katakana-7 '(
+    #(d2 ギャ gya) #(d2 ギュ gyu) #(d2 ギョ gyo)
+    #(d2 ジャ ja) #(d2 ジュ ju) #(d2 ジョ jo)
+    #(d2 ヂャ ja) #(d2 ヂュ ju) #(d2 ヂョ jo)
+    #(d2 ビャ bya) #(d2 ビュ byu) #(d2 ビョ byo)
+    #(h2 ピャ pya) #(h2 ピュ pyu) #(h2 ピョ pyo)))
+
+(add-lesson! 'hiragana-1 '(
+    #(n あ a) #(n い i) #(n う u) #(n え e) #(n お o)
+    #(n か ka) #(n き ki) #(n く ku) #(n け ke) #(n こ ko)
+    #(d が ga) #(d ぎ gi) #(d ぐ gu) #(d げ ge) #(d ご go)))
+
+(add-lesson! 'hiragana-2 '(
+    #(n さ sa) #(n し shi) #(n す su) #(n せ se) #(n そ so)
+    #(d ざ za) #(d じ ji) #(d ず zu) #(d ぜ ze) #(d ぞ zo)
+    #(n た ta) #(n ち chi) #(n つ tsu) #(n て te) #(n と to)
+    #(d だ da) #(d ぢ ji) #(d づ zu) #(d で de) #(d ど do)))
+
+(add-lesson! 'hiragana-3 '(
+    #(n な na) #(n に ni) #(n ぬ nu) #(n ね ne) #(n の no)
+    #(n は ha) #(n ひ hi) #(n ふ fu) #(n へ he) #(n ほ ho)
+    #(d ば ba) #(d び bi) #(d ぶ bu) #(d べ be) #(d ぼ bo)
+    #(h ぱ pa) #(h ぴ pi) #(h ぷ pu) #(h ぺ pe) #(h ぽ po)))
+
+(add-lesson! 'hiragana-4a '(
+    #(n ま ma) #(n み mi) #(n む mu) #(n め me) #(n も mo)
+    #(n や ya) #(n ゆ yu) #(n よ yo)))
+
+(add-lesson! 'hiragana-4b '(
+    #(n ら ra) #(n り ri) #(n る ru) #(n れ re) #(n ろ ro)
+    #(n わ wa) #(n ゐ wi) #(n ゑ we) #(n を wo)
+    #(n ん n)))
+
+(add-lesson! 'hiragana-5 '(
+    #(n2 きゃ kya) #(n2 きゅ kyu) #(n2 きょ kyo)
+    #(n2 しゃ sha) #(n2 しゅ shu) #(n2 しょ sho)
+    #(n2 ちゃ cha) #(n2 ちゅ chu) #(n2 ちょ cho)
+    #(n2 にゃ nya) #(n2 にゅ nyu) #(n2 にょ nyo)))
+
+(add-lesson! 'hiragana-6 '(
+    #(n2 ひゃ hya) #(n2 ひゅ hyu) #(n2 ひょ hyo)
+    #(n2 みゃ mya) #(n2 みゅ myu) #(n2 みょ myo)
+    #(n2 りゃ rya) #(n2 りゅ ryu) #(n2 りょ ryo)
+    #(n っ double-next-consonant) #(n ゝ repeat-unvoiced) #(d ゞ repeat-voiced)))
+
+(add-lesson! 'hiragana-7 '(
+    #(d2 ぎゃ gya) #(d2 ぎゅ gyu) #(d2 ぎょ gyo)
+    #(d2 じゃ ja) #(d2 じゅ ju) #(d2 じょ jo)
+    #(d2 ぢゃ ja) #(d2 ぢゅ ju) #(d2 ぢょ jo)
+    #(d2 びゃ bya) #(d2 びゅ byu) #(d2 びょ byo)
+    #(h2 ぴゃ pya) #(h2 ぴゅ pyu) #(h2 ぴょ pyo)))
 
 (define make-adder (lambda ()
     (let* (
@@ -134,27 +129,27 @@
           (proc lesson-name lesson-items)
           (loop lessons))))))
 
-(define for-each-lesson-dhn (lambda (proc)
-    (let loop ((lessons lessons-dhn))
-      (if (null? lessons) #t
-        (let* (
-            (lesson (car lessons))
-            (lesson-name (car lesson))
-            (lesson-items (cdr lesson))
-            (lessons (cdr lessons)))
-          (proc lesson-name lesson-items)
-          (loop lessons))))))
-
 (define list-lessons (lambda ()
     (with-add (lambda (add! add-list! items-so-far)
         (for-each-lesson (lambda (name items) (add! name)))))))
 
-(define any (lambda (proc items)
+(define any? (lambda (proc items)
     (let loop ((items items))
       (cond
         ((null? items) #f)
         ((proc (car items)) #t)
         (else (loop (cdr items)))))))
+
+(define filter (lambda (proc items)
+    (let loop ((items items) (result '()))
+      (if (null? items) (reverse result)
+        (let (
+            (item (car items))
+            (items (cdr items)))
+          (if (proc item) (loop items (cons item result))
+            (loop items result)))))))
+
+(define filter-vector (lambda (proc itemvec) (list->vector (filter proc (vector->list itemvec)))))
 
 (define stringify (lambda (x)
     (cond
@@ -192,94 +187,84 @@
           (if (> (+ pos infixlen) strlen) #f
             (if (string=? infix (substring str pos (+ pos infixlen))) #t
               (loop (+ pos 1)))))))))
-              
-(define compile-rule (lambda (rule)
-    (cond
-      ((procedure? rule) rule)
-      ((eq? rule #t) (lambda (x) #t))
-      ((eq? rule #f) (lambda (x) #f))
-      ((pair? rule)
-        (case (car rule)
-          ((not)
-            (let (
-                (irule (compile-rule (cdr rule))))
-              (lambda (x) (not (irule x)))))
-          ((or)
-            (let (
-                (irules (map compile-rule (cdr rule))))
-              (lambda (x) (any (lambda (r) (r x)) irules))))
-          ((and)
-            (let (
-                (irules (map compile-rule (cdr rule))))
-              (lambda (x) (not (any (lambda (r) (not (r x))) irules)))))
-          ((is)
-            (let (
-                (the-strings (map stringify (cdr rule))))
-              (lambda (x)
-                (let (
-                    (x (stringify x)))
-                  (any (lambda (y) (string=? y x)) the-strings)))))
-          ((starts-with)
-            (let (
-                (the-strings (map stringify (cdr rule))))
-              (lambda (x)
-                (let (
-                    (x (stringify x)))
-                  (any (lambda (y) (starts-with? y x)) the-strings)))))
-          ((ends-with)
-            (let (
-                (the-strings (map stringify (cdr rule))))
-              (lambda (x)
-                (let (
-                    (x (stringify x)))
-                  (any (lambda (y) (ends-with? y x)) the-strings)))))
-          ((contains includes)
-            (let (
-                (the-strings (map stringify (cdr rule))))
-              (lambda (x)
-                (let (
-                    (x (stringify x)))
-                  (any (lambda (y) (contains? y x)) the-strings)))))           
-          (else (abort `("unknown rule " ,(car rule))))))
-        (else (abort "unknown rule type")))))
 
-(define dhn-filter (lambda (dhn item)
-    (let (
-        (item-dhn (get-dhn (car item))))
-      (contains? item-dhn dhn))))
-      
-(define make-bank (lambda (q-proc w-proc dhn)
-    (let (
-        (q-proc (compile-rule q-proc))
-        (w-proc (compile-rule w-proc))
-        (q-adder (make-adder))
-        (w-adder (make-adder))
-        (add-dhn! (lambda (add! items)
-            (let loop ((items items))
-              (if (null? items) #t
-                (begin
-                  (if (dhn-filter dhn (car items)) (add! (car items)))
-                  (loop (cdr items))))))))
-      (for-each-lesson (lambda (lesson-name lesson-items)
-          (if (q-proc lesson-name)
-            (add-dhn! (q-adder 'add!) lesson-items)
-            (if (w-proc lesson-name)
-              (add-dhn! (w-adder 'add!) lesson-items)
-              #t))))
-      (vector (list->vector ((q-adder 'items))) (list->vector ((w-adder 'items)))))))
+; a compiled rule is a function called as (<rule> <lesson-name> <question-type>)
 
-(define make-bank-dhn (lambda (q-proc w-proc)
+(define compile-rule (lambda (context rule)
     (let (
-        (q-proc (compile-rule q-proc))
-        (w-proc (compile-rule w-proc))
+        (get-by-context (lambda (context) (lambda (lesson-name question-type)
+              (if (eq? context 'question-type) question-type lesson-name)))))
+      (cond
+        ((procedure? rule) rule)
+        ((eq? rule #t) (lambda (lesson-name question-type) #t))
+        ((eq? rule #f) (lambda (lesson-name question-type) #f))
+        ((pair? rule)
+          (case (car rule)
+            ((not)
+              (let (
+                  (irule (compile-rule context (cdr rule))))
+                (lambda (lesson-name question-type) (not (irule lesson-name question-type)))))
+            ((or)
+              (let (
+                  (irules (map (lambda (x) (compile-rule context x)) (cdr rule))))
+                (lambda (lesson-name question-type) (any? (lambda (r) (r lesson-name question-type)) irules))))
+            ((and)
+              (let (
+                  (irules (map (lambda (x) (compile-rule context x)) (cdr rule))))
+                (lambda (lesson-name question-type) (not (any? (lambda (r) (not (r lesson-name question-type))) irules)))))
+            ((lesson-name)
+              (compile-rule 'lesson-name (cdr rule)))
+            ((question-type)
+              (compile-rule 'question-type (cdr rule)))
+            ((is)
+              (let (
+                  (gbc (get-by-context context))
+                  (the-strings (map stringify (cdr rule))))
+                (lambda (lesson-name question-type)
+                  (let (
+                      (x (stringify (gbc lesson-name question-type))))
+                    (any? (lambda (y) (string=? y x)) the-strings)))))
+            ((starts-with)
+              (let (
+                  (gbc (get-by-context context))
+                  (the-strings (map stringify (cdr rule))))
+                (lambda (lesson-name question-type)
+                  (let (
+                      (x (stringify (gbc lesson-name question-type))))
+                    (any? (lambda (y) (starts-with? y x)) the-strings)))))
+            ((ends-with)
+              (let (
+                  (gbc (get-by-context context))
+                  (the-strings (map stringify (cdr rule))))
+                (lambda (lesson-name question-type)
+                  (let (
+                      (x (stringify (gbc lesson-name question-type))))
+                    (any? (lambda (y) (ends-with? y x)) the-strings)))))
+            ((contains includes)
+              (let (
+                  (gbc (get-by-context context))
+                  (the-strings (map stringify (cdr rule))))
+                (lambda (lesson-name question-type)
+                  (let (
+                      (x (stringify (gbc lesson-name question-type))))
+                    (any? (lambda (y) (contains? y x)) the-strings)))))           
+            (else (abort `("unknown rule " ,(car rule))))))
+          (else (abort "unknown rule type"))))))
+
+(define make-bank (lambda (q-proc w-proc)
+    (let (
+        (q-proc (compile-rule 'lesson-name q-proc))
+        (w-proc (compile-rule 'lesson-name w-proc))
         (q-adder (make-adder))
         (w-adder (make-adder)))
-      (for-each-lesson-dhn (lambda (lesson-name lesson-items)
-          (if (q-proc lesson-name)
-            ((q-adder 'add-list!) lesson-items)
-            (if (w-proc lesson-name)
-              ((w-adder 'add-list!) lesson-items)
-              #t))))
+      (for-each-lesson (lambda (lesson-name lesson-items)
+          (for-each (lambda (lesson-item)
+              (if (q-proc lesson-name (vector-ref lesson-item 0))
+                ((q-adder 'add!) lesson-item)
+                (if (w-proc lesson-name (vector-ref lesson-item 0))
+                  ((w-adder 'add!) lesson-item)
+                  #t)))
+            lesson-items)))
       (vector (list->vector ((q-adder 'items))) (list->vector ((w-adder 'items)))))))
 
 (define bank-info (lambda (bank)
@@ -291,56 +276,41 @@
       (if (< i e) (begin (proc i) (loop (+ i 1)))
         #t))))
 
-(define lookup (lambda (desired-lesson-name item)
-    (call-with-current-continuation (lambda (return)
-        (for-each-lesson (lambda (lesson-name lesson-items)
-            (if (eq? desired-lesson-name lesson-name)
-              (let loop ((li lesson-items))
-                (cond
-                  ((equal? (caar li) item) (return (cadar li)))
-                  ((equal? (cadar li) item) (return (caar li)))
-                  ((null? (cdr li)) (return #f))
-                  (else (loop (cdr li)))))
-              #t)))))))
-
-(define lookup-1-from-bank (lambda (bank item)
-    (let* (
-        (bank1 (vector-ref bank 0))
-        (len (vector-length bank1)))
+(define lookup (lambda (rule ix1 ix2 item)
+    (let ((crule (compile-rule 'lesson-name rule)))
       (call-with-current-continuation (lambda (return)
-          (for 0 len (lambda (i)
-              (let (
-                  (q (vector-ref bank1 i)))
-                (if (eq? (car q) item) (return (cadr q)))
-                (if (eq? (cadr q) item) (return (car q))))))
-          #f)))))
-      
-(define lookup-from-bank (lambda (bank items)
-    (with-add (lambda (add! add-list! get-items)
-        (let loop ((remain items))
-          (if (null? remain) #t
-            (let (
-                (item (car remain))
-                (remain (cdr remain)))
-              (add! (lookup-1-from-bank bank item))
-              (loop remain))))))))
+          (for-each-lesson (lambda (lesson-name lesson-items)
+              (for-each (lambda (lesson-item)
+                  (if (crule lesson-name (vector-ref lesson-item 0))
+                    (if (equal? (vector-ref lesson-item ix1) item)
+                      (return (vector-ref lesson-item ix2))
+                      (if (equal? (vector-ref lesson-item ix2) item)
+                        (return (vector-ref lesson-item ix1))
+                        #t))
+                    #t))
+                lesson-items))))))))
 
-(define indistinguishable-items `(
-    (,(lookup 'katakana-3 'he) . ,(lookup 'hiragana-3 'he))
-    (,(lookup 'katakana-3 'be) . ,(lookup 'hiragana-3 'be))
-    (,(lookup 'katakana-3 'pe) . ,(lookup 'hiragana-3 'pe))
-    (,(lookup 'hiragana-6 'double-next-consonant) . ,(lookup 'hiragana-2 'tsu))
-    (,(lookup 'katakana-6 'double-next-consonant) . ,(lookup 'katakana-2 'tsu))))
+(define indistinguishable-items
+    (let (
+        (lookup (lambda (s t) (lookup `(is ,s) 1 2 t))))
+      `(
+        (,(lookup 'katakana-3 'he) . ,(lookup 'hiragana-3 'he))
+        (,(lookup 'katakana-3 'be) . ,(lookup 'hiragana-3 'be))
+        (,(lookup 'katakana-3 'pe) . ,(lookup 'hiragana-3 'pe))
+        (,(lookup 'hiragana-6 'double-next-consonant) . ,(lookup 'hiragana-2 'tsu))
+        (,(lookup 'katakana-6 'double-next-consonant) . ,(lookup 'katakana-2 'tsu)))))
 
 (define indistinguishable? (lambda (a b)
     (or
       (equal? a b)
-      (any
+      (any?
         (lambda (p)
           (or
             (and (equal? a (car p)) (equal? b (cdr p)))
             (and (equal? b (car p)) (equal? a (cdr p)))))
         indistinguishable-items))))
+
+; generate a list of up to <count> random items from <candidate-list> which are distinct according to <eq?>
 
 (define make-distinct (lambda (candidate-list count eq?)
     (let loop (
@@ -387,83 +357,40 @@
           i
           (loop (+ i 1)))
         #f))))
-
-(define filter (lambda (proc lst)
-    (let loop ((lst lst) (result '()))
-      (if (null? lst) result
-        (if (proc (car lst))
-          (loop (cdr lst) (cons (car lst) result))
-          (loop (cdr lst) (reverse result)))))))
           
 (define make-question (lambda (bank wrong-count)
     (let* (
-        (flip (random-integer 2))
         (bank-length (vector-length (vector-ref bank 0)))
-        (bank-length-with-wrongs (+ bank-length (vector-length (vector-ref bank 1))))
-        (ref (lambda (i)
-            (if (< i bank-length)
-              (vector-ref (vector-ref bank 0) i)
-              (vector-ref (vector-ref bank 1) (- i bank-length)))))
-        (get-q (lambda (i) ((if (= flip 0) car cadr) (ref i))))
-        (get-a (lambda (i) ((if (= flip 0) cadr car) (ref i))))
-        (unfair? (lambda (i j)
-            (or
-              (= i j)
-              (indistinguishable? (get-q i) (get-q j))
-              (indistinguishable? (get-a i) (get-a j)))))
         (item-index (random-integer bank-length))
-        (options
-          (cons item-index
-            (make-distinct
-              (filter (lambda (j) (not (unfair? item-index j))) (iota bank-length-with-wrongs))
-              wrong-count
-              unfair?)))
-        (q (get-q item-index))
-        (a-indexes (shuffle! (list->vector options)))
-        (a-values (list->vector (map get-a (vector->list a-indexes))))
-        (a-pick (find-index (lambda (i) (= i item-index)) a-indexes)))
-      `(,q ,a-values ,a-pick))))
-
-(define make-question-dhn (lambda (q bank-dhn wrong-count)
-    (let* (
-        (bank-length (vector-length (vector-ref bank-dhn 0)))
-        (bank-length-with-wrongs (+ bank-length (vector-length (vector-ref bank-dhn 1))))
-        (ref (lambda (i)
-            (if (< i bank-length)
-              (vector-ref (vector-ref bank-dhn 0) i)
-              (vector-ref (vector-ref bank-dhn 1) (- i bank-length)))))
-        (flip-item-index
-          (let loop ((i 0))
-            (if (>= i bank-length)
-              (abort "Question not found")
-              (let (
-                  (item (ref i)))
-                (cond
-                  ((eq? (car item) q) (cons 0 i))
-                  ((eq? (cadr item) q) (cons 1 i))
-                  (else (loop (+ i 1))))))))
-        (flip (car flip-item-index))
-        (item-index (cdr flip-item-index))
-        (get-q (lambda (i) ((if (= flip 0) car cadr) (ref i))))
-        (get-a (lambda (i) ((if (= flip 0) cadr car) (ref i))))
-        (get-dhn (lambda (i) (caddr (ref i))))
-        (unfair? (lambda (i j)
+        (item (vector-ref (vector-ref bank 0) item-index))
+        (item-kind (vector-ref item 0))
+        (item-length (vector-length item))
+        (item-indexes (iota (- (vector-length item) 1) 1))
+        (index-picks (make-distinct item-indexes 2 =))
+        (q-idx (car index-picks))
+        (a-idx (cadr index-picks))
+        (item-q (vector-ref item q-idx))
+        (item-a (vector-ref item a-idx))
+        (is-same-type (lambda (x) (and (eq? (vector-ref x 0) item-kind) (= (vector-length x) item-length))))
+        (is-distinguishable-same-type (lambda (x)
+            (and
+              (is-same-type x)
+              (not (indistinguishable? item-q (vector-ref x q-idx)))
+              (not (indistinguishable? item-a (vector-ref x a-idx))))))
+        (wrongs
+          (vector-append
+            (filter-vector is-distinguishable-same-type (vector-ref bank 0))
+            (filter-vector is-distinguishable-same-type (vector-ref bank 1))))
+        (unfair (lambda (i j)
             (or
               (= i j)
-              (indistinguishable? (get-q i) (get-q j))
-              (indistinguishable? (get-a i) (get-a j)))))
-        (dhn-item-index (get-dhn item-index))
-        (options
-          (cons item-index
-            (make-distinct
-              (filter (lambda (i) (and (not (unfair? i item-index)) (eq? (get-dhn i) dhn-item-index)))
-                (iota bank-length-with-wrongs))
-              wrong-count
-              unfair?)))
-        (q (get-q item-index))
-        (a-indexes (shuffle! (list->vector options)))
-        (a-values (list->vector (map get-a (vector->list a-indexes))))
-        (a-pick (find-index (lambda (i) (= i item-index)) a-indexes)))
+              (indistinguishable? (vector-ref (vector-ref wrongs i) q-idx) (vector-ref (vector-ref wrongs j) q-idx))
+              (indistinguishable? (vector-ref (vector-ref wrongs i) a-idx) (vector-ref (vector-ref wrongs j) a-idx)))))
+        (selected-wrongs (make-distinct (iota (vector-length wrongs)) wrong-count unfair))
+        (q (vector-ref item q-idx))
+        (a-indexes (shuffle! (list->vector (cons -1 selected-wrongs))))
+        (a-values (vector-map (lambda (k) (if (= k -1) (vector-ref item a-idx) (vector-ref (vector-ref wrongs k) a-idx))) a-indexes))
+        (a-pick (find-index (lambda (i) (= i -1)) a-indexes)))
       `(,q ,a-values ,a-pick))))
 
 (define randomize! (lambda () (random-source-randomize! default-random-source)))
@@ -512,37 +439,5 @@
                 (if (equal? b "q") #t
                   (present-question))))
             (present-question)))))))
-
-(define run-quiz-dhn (lambda (qs bank wrong-count)
-    (let loop ((do-prompt #f) (qs qs))
-      (if (null? qs)
-        (begin
-          (display "Done!")
-          (newline))
-        (let* (
-            (qdata (make-question-dhn (car qs) bank wrong-count))
-            (q (car qdata))
-            (a-values (cadr qdata))
-            (a-pick (caddr qdata)))
-          (let (
-              (present-question
-                (lambda ()
-                  (present-question q a-values a-pick
-                    (lambda (right?)
-                      (if right? (loop #t (cdr qs)) (loop #t qs)))))))
-            (if do-prompt
-              (begin
-                (display "Enter q to quit or press enter to continue.")
-                (newline)
-                (display "? ")
-                (let ((b (read-line-2)))
-                  (if (equal? b "q") #t
-                    (present-question))))
-              (present-question))))))))
-
-(define bh (make-bank '(and (starts-with hiragana) (contains 1 2 3 4)) #f 'n))
-(define bhn (make-bank-dhn '(and (starts-with hiragana) (contains 1 2 3 4)) #f))
-(define bk (make-bank '(and (starts-with katakana) (contains 1 2 3 4)) #f 'n))
-(define bkn (make-bank-dhn '(and (starts-with katakana) (contains 1 2 3 4)) #f))
 
 (randomize!)
