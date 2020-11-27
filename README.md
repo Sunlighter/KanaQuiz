@@ -22,7 +22,7 @@ a big refactoring in order to support vocabulary including kanji.
 Right now I am actually keeping a non-public fork where I enter vocabulary from the second-edition *Genki* books. I
 don&rsquo;t think I can publish that fork because of copyright, but I can publish the quiz program without the
 vocabulary lists. The third edition of the Genki books is out now, anyway, so you might want to enter your own
-vocabulary, anyway, to match the books you are learning from.
+vocabulary, to match the books you are learning from.
 
 I am using the Windows Japanese IME and Windows Notepad to enter kana and kanji into the source code. Then I push from
 Windows, pull to Linux, and use Linux to run the quiz. I have not been able to get a Japanese IME to work in Linux,
@@ -90,8 +90,10 @@ The syntax of a rule is like this:
 * `#f` does not include any lessons.
 * If you pass a Scheme procedure, it is expected to take two arguments, a lesson name and a question type, and to
 return `#t` if it matches the rule or `#f` if it does not.
-* `(lesson-name `...`)` indicates that its sub-rule should be applied against the lesson name. This is the default.
-* `(question-type `...`)` indicates that its sub-rule should be applied against the question type. So for example you
+* `(lesson-name . `*rule*`)` indicates that its sub-rule should be applied against the lesson name. This is the default.
+The sub-rule is the tail of the list, not a separate list, so it is possible to write something like
+`(lesson-name starts-with katakana)`.
+* `(question-type . `*rule*`)` indicates that its sub-rule should be applied against the question type. So for example you
 can write `(question-type is n)` and get only kana (and not digraphs) without dakuten or handakuten.
 * `(is `*name*` `...`)` includes values which match any of the given *name* items *exactly.*
 * `(starts-with `*prefix*` `...`)` includes values which start with any of the given *prefix* items.
@@ -100,8 +102,8 @@ can write `(question-type is n)` and get only kana (and not digraphs) without da
 * `(includes `*infix*` `...`)` is the same as `contains`.
 * `(or `*rule*` `...`)` takes a list of sub-rules and matches if any of the sub-rules match.
 * `(and `*rule*` `...`)` takes a list of sub-rules and matches only if all of the sub-rules match.
-* `(not . `*rule*`)` takes one sub-rule and matches only if the sub-rule does not. The sub-rule is the tail of the
-list, not a separate list, so it is possible to write something like `(not is katakana-4 hiragana-4)`.
+* `(not . `*rule*`)` takes one sub-rule (the tail of the list) and matches only if the sub-rule does not,
+so you can write something like `(not ends-with 4)`.
 
 These rules use the `stringify` function to turn everything into strings. So you can say `(ends-with 3)` and it
 matches `hiragana-3` and `katakana-3`.
