@@ -90,11 +90,11 @@ The syntax of a rule is like this:
 * `#f` does not include any lessons.
 * If you pass a Scheme procedure, it is expected to take two arguments, a lesson name and a question type, and to
 return `#t` if it matches the rule or `#f` if it does not.
-* `(lesson-name . `*rule*`)` indicates that its sub-rule should be applied against the lesson name. This is the default.
-The sub-rule is the tail of the list, not a separate list, so it is possible to write something like
+* `(lesson-name . `*rule*`)` indicates that its sub-rule should be applied against the lesson name. This is the
+default. The sub-rule is the tail of the list, not a separate list, so it is possible to write something like
 `(lesson-name starts-with katakana)`.
-* `(question-type . `*rule*`)` indicates that its sub-rule should be applied against the question type. So for example you
-can write `(question-type is n)` and get only kana (and not digraphs) without dakuten or handakuten.
+* `(question-type . `*rule*`)` indicates that its sub-rule should be applied against the question type. So for example
+you can write `(question-type is n)` and get only kana (and not digraphs) without dakuten or handakuten.
 * `(is `*name*` `...`)` includes values which match any of the given *name* items *exactly.*
 * `(starts-with `*prefix*` `...`)` includes values which start with any of the given *prefix* items.
 * `(ends-with `*suffix*` `...`)` includes values which end with any of the given *suffix* items.
@@ -102,8 +102,8 @@ can write `(question-type is n)` and get only kana (and not digraphs) without da
 * `(includes `*infix*` `...`)` is the same as `contains`.
 * `(or `*rule*` `...`)` takes a list of sub-rules and matches if any of the sub-rules match.
 * `(and `*rule*` `...`)` takes a list of sub-rules and matches only if all of the sub-rules match.
-* `(not . `*rule*`)` takes one sub-rule (the tail of the list) and matches only if the sub-rule does not,
-so you can write something like `(not ends-with 4)`.
+* `(not . `*rule*`)` takes one sub-rule (the tail of the list) and matches only if the sub-rule does not, so you can
+write something like `(not ends-with 4)`.
 
 These rules use the `stringify` function to turn everything into strings. So you can say `(ends-with 3)` and it
 matches `hiragana-3` and `katakana-3`.
@@ -123,6 +123,6 @@ katakana `ヘ`. (This function can be extended if necessary. Note, however, that
 distinguish, such as `シ` and `ツ`, and `ソ` and `ン`, should *not* be marked as &ldquo;indistinguishable,&rdquo;
 otherwise, the quiz will never ask you to distinguish them.)
 
-One of the results of the `indistinguishable?` function is that, if something has two pronunciations, like なな and
-しち, you can make a separate question for each pronunciation, and the program will quiz you on both of them without
+One of the results of the `indistinguishable?` function is that, if something has two pronunciations, like なな and し
+ち, you can make a separate question for each pronunciation, and the program will quiz you on both of them without
 ever forcing you to choose between two correct answers.
